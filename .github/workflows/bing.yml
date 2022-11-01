@@ -1,8 +1,8 @@
-name: Bing Wallpaper
+name: wallpaper
 on:
   schedule:
-    # 定时执行, runs at 8:45,16:45 UTC every day
-    - cron: '45 8,16 * * *'
+    # 定时执行, runs at 0:45,8:45,18:45 UTC every day
+    - cron: '45 0,8,18 * * *'
 
 jobs:
   build_and_test:
@@ -17,20 +17,20 @@ jobs:
       - name: Install Dependencies
         run: pip install requests
       - name: Run Python Application
-        run: python bing.py
+        run: python app.py
 
       - name: Commit files
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "2071916845@qq.com"
+          git config --local user.email "it985"
           git pull
           git add .
-          git commit -m "`date   "+%B %d, %Y🎉"`"
+          git commit -m "`date  "+%B %d, %Y🎉"`"
           
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.TOKEN }}
           branch: ${{ github.ref }}
 
       - name: Delete Workflow Runs
@@ -41,33 +41,33 @@ jobs:
           retain_days: 0
           keep_minimum_runs: 0
 
-#   mirror_to_gitee:
+  # mirror_to_gitee:
+  #   needs: build_and_test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v1
+  #     - name: 'Mirror to gitee'
+  #       uses: pixta-dev/repository-mirroring-action@v1
+  #       with:
+  #         target_repo_url:
+  #           git@gitee.com:orangeeeen/gallery.git
+  #         ssh_private_key:
+  #           ${{ secrets.GITEE_PRIVATE_KEY }}
+
+#   mirror_to_gitlab:
 #     needs: build_and_test
 #     runs-on: ubuntu-latest
 #     steps:
 #       - name: Checkout
 #         uses: actions/checkout@v1
-#       - name: 'Mirror to gitee'
+#       - name: 'Mirror to gitlab'
 #         uses: pixta-dev/repository-mirroring-action@v1
 #         with:
 #           target_repo_url:
-#             git@gitee.com:jaesten/bing-wallpaper.git
+#             git@gitlab.com:jaesten/gallery.git
 #           ssh_private_key:
-#             ${{ secrets.GITEE_PRIVATE_KEY }}
-
-  mirror_to_gitlab:
-    needs: build_and_test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: 'Mirror to gitlab'
-        uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url:
-            git@gitlab.com:jaesten/bing-wallpaper.git
-          ssh_private_key:
-            ${{ secrets.GITLAB_PRIVATE_KEY }}
+#             ${{ secrets.GITLAB_PRIVATE_KEY }}
 
   # mirror_to_jihulab:
   #   needs: build_and_test
@@ -79,37 +79,37 @@ jobs:
   #       uses: pixta-dev/repository-mirroring-action@v1
   #       with:
   #         target_repo_url:
-  #           git@jihulab.com:orangeeeen/bw.git
+  #           git@jihulab.com:orangeeeen/gallery.git
   #         ssh_private_key:
   #           ${{ secrets.JIHULAB_PRIVATE_KEY }}
 
-  mirror_to_bitbucket:
-    needs: build_and_test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: 'Mirror to bitbucket'
-        uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url:
-            git@bitbucket.org:jaesten/bing-wallpaper.git
-          ssh_private_key:
-            ${{ secrets.BITBUCKET_PRIVATE_KEY }}
+#   mirror_to_bitbucket:
+#     needs: build_and_test
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v1
+#       - name: 'Mirror to bitbucket'
+#         uses: pixta-dev/repository-mirroring-action@v1
+#         with:
+#           target_repo_url:
+#             git@bitbucket.org:jaesten/gallery.git
+#           ssh_private_key:
+#             ${{ secrets.BITBUCKET_PRIVATE_KEY }}
 
-  mirror_to_azure:
-    needs: build_and_test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: 'Mirror to azure'
-        uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url:
-            git@ssh.dev.azure.com:v3/jaesteeeen/bing-wallpaper/bing-wallpaper
-          ssh_private_key:
-            ${{ secrets.AZURE_PRIVATE_KEY }}
+#   mirror_to_azure:
+#     needs: build_and_test
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v1
+#       - name: 'Mirror to azure'
+#         uses: pixta-dev/repository-mirroring-action@v1
+#         with:
+#           target_repo_url:
+#             git@ssh.dev.azure.com:v3/jaesteeeen/gallery/gallery
+#           ssh_private_key:
+#             ${{ secrets.AZURE_PRIVATE_KEY }}
 
   # mirror_to_coding:
   #   needs: build_and_test
@@ -121,6 +121,6 @@ jobs:
   #       uses: pixta-dev/repository-mirroring-action@v1
   #       with:
   #         target_repo_url:
-  #           git@e.coding.net:orangeeeen/bw/bw.git
+  #           git@e.coding.net:orangeeeen/gallery/gallery.git
   #         ssh_private_key:
   #           ${{ secrets.CODING_PRIVATE_KEY }}
